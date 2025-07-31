@@ -2,9 +2,22 @@ from game_result import GameResult
 
 
 class Game:
+    def __init__(self):
+        self._question = ""
+
+    @property
+    def question(self):
+        raise AttributeError
+
+    @question.setter
+    def question(self, value):
+        self._question = value
+
     def guess(self, numbers):
         self._assert_illegal_value(numbers)
-        return GameResult(True, 3, 0)
+        if self._question == numbers:
+            return GameResult(True, 3, 0)
+        return None
 
     def _assert_illegal_value(self, numbers):
         if numbers is None:
