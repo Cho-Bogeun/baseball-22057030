@@ -8,16 +8,9 @@ def game():
 
 
 def assert_illegal_argument(game, guess):
-    try:
+    with pytest.raises(TypeError):
         game.guess(guess)
-        pytest.fail()
-    except TypeError:
-        pass
 
-
-def test_exception_when_invalid_argument(game):
-    assert_illegal_argument(game, None)
-    assert_illegal_argument(game, "12")
-    assert_illegal_argument(game, "1234")
-    assert_illegal_argument(game, "12s")
-    assert_illegal_argument(game, "121")
+@pytest.mark.parametrize("invalid_inputs", [None, "12", "1234", "12s", "121"])
+def test_exception_when_invalid_argument(game, invalid_inputs):
+    assert_illegal_argument(game, invalid_inputs)
