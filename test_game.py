@@ -13,24 +13,22 @@ def assert_illegal_argument(game, guess):
     with pytest.raises(TypeError):
         game.guess(guess)
 
+def assert_matched_number(result, solved, strikes, balls):
+    assert result is not None
+    assert result.solved == solved
+    assert result.strikes == strikes
+    assert result.balls == balls
+
 @pytest.mark.parametrize("invalid_inputs", [None, "12", "1234", "12s", "121"])
 def test_exception_when_invalid_argument(game, invalid_inputs):
     assert_illegal_argument(game, invalid_inputs)
 
+
 def test_return_solved_if_matched_numbers(game):
     game.question = "123"
-    result: GameResult = game.guess("123")
+    assert_matched_number(game.guess("123"), solved=True, strikes=3, balls=0)
 
-    assert result is not None
-    assert result.solved == True
-    assert result.strikes == 3
-    assert result.balls == 0
 
 def test_return_solved_if_unmatched_numbers(game):
     game.question = "123"
-    result: GameResult = game.guess("456")
-
-    assert result is not None
-    assert result.solved == False
-    assert result.strikes == 0
-    assert result.balls == 0
+    assert_matched_number(game.guess("456"), solved = False, strikes=0, balls=0)
