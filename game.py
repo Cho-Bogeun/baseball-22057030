@@ -17,7 +17,7 @@ class Game:
         self._assert_illegal_value(numbers)
         if self._question == numbers:
             return GameResult(True, 3, 0)
-        return None
+        return GameResult(False, 0, 0)
 
     def _assert_illegal_value(self, numbers):
         if numbers is None:

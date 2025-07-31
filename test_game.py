@@ -25,3 +25,12 @@ def test_return_solved_if_matched_numbers(game):
     assert result.solved == True
     assert result.strikes == 3
     assert result.balls == 0
+
+def test_return_solved_if_unmatched_numbers(game):
+    game.question = "123"
+    result: GameResult = game.guess("456")
+
+    assert result is not None
+    assert result.solved == False
+    assert result.strikes == 0
+    assert result.balls == 0
