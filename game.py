@@ -17,7 +17,10 @@ class Game:
         self._assert_illegal_value(numbers)
         if self._question == numbers:
             return GameResult(True, 3, 0)
-        return GameResult(False, 0, 0)
+
+        strike_list = [n for q,n in zip(self._question, numbers) if q==n]
+        ball_list = [n for n in numbers if (n in set(self._question) and n not in strike_list)]
+        return GameResult(False, len(strike_list), len(ball_list))
 
     def _assert_illegal_value(self, numbers):
         if numbers is None:
