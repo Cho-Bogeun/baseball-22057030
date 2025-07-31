@@ -10,3 +10,7 @@ def game():
 def test_exception_with_input_is_none(game):
     with pytest.raises(TypeError):
         game.guess(None)
+
+def test_exception_when_input_length_is_not_matched(game):
+    with pytest.raises(TypeError):
+        game.guess("12")
